@@ -26,3 +26,9 @@ sito di deploy http://mbmeteo.marcoberri.it
 
 
 <img src="http://mbmeteo.googlecode.com/files/mbmeteo_1.jpg"/>
+
+
+<img src="http://mbmeteo.googlecode.com/files/mbmeteo_2.jpg"/>
+
+
+<img src="http://mbmeteo.googlecode.com/files/mbmeteo_3.jpg"/>
