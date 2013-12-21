@@ -1,0 +1,26 @@
+function(){
+    var fields =['outdoorTemperature','outdoorHumidity','absolutePressure','relativePressure','wind','gust','dewpoint','windChill','hourRainfall','dayRainfall','weekRainfall','monthRainfall','totalRainfall','windLevel','gustLevel'];	
+	
+    var objs = {};
+	
+    for( var f=0; f<fields.length;f++) {
+        var k = fields[f];
+        objs[k] = {
+            'min' : this[k], 
+            'max' : this[k]
+        }; 
+    }
+	
+    var d = this.time.getDate();
+    if(d<10)
+        d  = '0' + d; 
+
+    var m = this.time.getMonth();
+    m++;
+    
+    if(m<10)
+        m = '0' + m;
+    
+    var time_short = this.time.getFullYear() + '-' + m + '-' + d;
+    emit(time_short,objs);
+}

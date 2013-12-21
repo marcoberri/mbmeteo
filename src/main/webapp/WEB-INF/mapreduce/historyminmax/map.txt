@@ -1,0 +1,18 @@
+function() {
+
+    var fields =['outdoorTemperature','outdoorHumidity','absolutePressure','relativePressure','wind','gust','dewpoint','windChill','hourRainfall','dayRainfall','weekRainfall','monthRainfall','totalRainfall','windLevel','gustLevel'];	
+	
+    var objs = {};
+	
+    for( var f=0; f<fields.length;f++) {
+        var k = fields[f];
+        objs[k] = {
+            'min' : this[k], 
+            'mintime' : this.time,
+            'max' : this[k],
+            'maxtime' : this.time
+        }; 
+    };
+	
+    emit('-',objs);
+}

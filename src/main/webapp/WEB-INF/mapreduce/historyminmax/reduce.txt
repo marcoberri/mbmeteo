@@ -1,0 +1,21 @@
+function(key, values){
+    var fields =['outdoorTemperature','outdoorHumidity','absolutePressure','relativePressure','wind','gust','dewpoint','windChill','hourRainfall','dayRainfall','weekRainfall','monthRainfall','totalRainfall','windLevel','gustLevel'];	
+    var res = values[0];
+    for ( var i=1; i<values.length; i++ ) {
+        for( var f=0; f<fields.length;f++) {
+            var k = fields[f];
+            if(values[i][k] == null)
+                continue;
+            var v = values[i][k];          
+            if ( v.min != null && v.min < res[k].min  ) {
+                res[k].min = v.min;
+                res[k].mintime = v.mintime;
+            }
+            if ( v.max != null && v.max  > res[k].max  ){ 
+                res[k].max = v.max;
+                res[k].maxtime = v.maxtime;
+            }
+        }
+    }
+    return res;
+}

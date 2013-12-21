@@ -1,0 +1,112 @@
+map = function(){
+	   var fields =['outdoorTemperature','outdoorHumidity','absolutePressure','relativePressure','wind','gust','dewpoint','windchill','hourRainfall','dayRainfall','weekRainfall','monthRainfall','totalRainfall','windLevel','gustLevel'];	
+	
+	var objs = {};
+	
+	for( var f=0; f<fields.length;f++) {
+		var k = fields[f];
+		objs[k] = { "min" : this[k], "max" : this[k]}; 
+	}
+	
+	var time_short = this.time.getFullYear() + "-" + this.time.getMonth() + "-" + this.time.getDate();
+	emit(time_short,objs)
+}
+
+reduce = function(key, values){
+   var fields =['outdoorTemperature','outdoorHumidity','absolutePressure','relativePressure','wind','gust','dewpoint','windchill','hourRainfall','dayRainfall','weekRainfall','monthRainfall','totalRainfall','windLevel','gustLevel'];	
+   var res = values[0];
+    for ( var i=1; i<values.length; i++ ) {
+	for( var f=0; f<fields.length;f++) {
+		var k = fields[f];
+		var v = values[i][k];
+	        if ( v.min < res[k].min  ) 
+        	   res[k].min = v.min;
+        	if ( v.max  > res[k].max  ) 
+                   res[k].max = v.max;
+	}
+    }
+    return res;
+}
+	
+db.Meteolog.mapReduce(map,reduce,{out:{merge:"reduceMaxMinDay"}});
+db.reduceMaxMinDay.find();
+
+------------------------------------------
+
+map = function(){
+	   var fields =['outdoorTemperature','outdoorHumidity','absolutePressure','relativePressure','wind','gust','dewpoint','windchill','hourRainfall','dayRainfall','weekRainfall','monthRainfall','totalRainfall','windLevel','gustLevel'];	
+	
+	var objs = {};
+	
+	for( var f=0; f<fields.length;f++) {
+		var k = fields[f];
+		objs[k] = { "min" : this[k], "max" : this[k]}; 
+	}
+	
+	var time_short = this.time.getFullYear() + "-" + this.time.getMonth();
+	emit(time_short,objs)
+}
+
+reduce = function(key, values){
+   var fields =['outdoorTemperature','outdoorHumidity','absolutePressure','relativePressure','wind','gust','dewpoint','windchill','hourRainfall','dayRainfall','weekRainfall','monthRainfall','totalRainfall','windLevel','gustLevel'];	
+   var res = values[0];
+    for ( var i=1; i<values.length; i++ ) {
+	for( var f=0; f<fields.length;f++) {
+		var k = fields[f];
+		var v = values[i][k];
+	        if ( v.min < res[k].min  ) 
+        	   res[k].min = v.min;
+        	if ( v.max  > res[k].max  ) 
+                   res[k].max = v.max;
+	}
+    }
+    return res;
+}
+	
+db.Meteolog.mapReduce(map,reduce,{out:{merge:"reduceMaxMinMonth"}});
+db.reduceMaxMinMonth.find();
+
+------------------------------------------
+
+map = function(){
+	   var fields =['outdoorTemperature','outdoorHumidity','absolutePressure','relativePressure','wind','gust','dewpoint','windchill','hourRainfall','dayRainfall','weekRainfall','monthRainfall','totalRainfall','windLevel','gustLevel'];	
+	
+	var objs = {};
+	
+	for( var f=0; f<fields.length;f++) {
+		var k = fields[f];
+		objs[k] = { "min" : this[k], "max" : this[k]}; 
+	}
+	
+	var time_short = this.time.getFullYear();
+	emit(time_short,objs)
+}
+
+reduce = function(key, values){
+   var fields =['outdoorTemperature','outdoorHumidity','absolutePressure','relativePressure','wind','gust','dewpoint','windchill','hourRainfall','dayRainfall','weekRainfall','monthRainfall','totalRainfall','windLevel','gustLevel'];	
+   var res = values[0];
+    for ( var i=1; i<values.length; i++ ) {
+	for( var f=0; f<fields.length;f++) {
+		var k = fields[f];
+		var v = values[i][k];
+	        if ( v.min < res[k].min  ) 
+        	   res[k].min = v.min;
+        	if ( v.max  > res[k].max  ) 
+                   res[k].max = v.max;
+	}
+    }
+    return res;
+}
+	
+db.Meteolog.mapReduce(map,reduce,{out:{merge:"reduceMaxMinYear"}});
+db.reduceMaxMinYear.find();
+
+
+db.Meteolog.mapReduce(map,reduce,{out:{merge:"MapReduceMinMax"}});
+db.MapReduceMinMax.find();
+
+-------------------------------------------------------------
+
+
+
+
