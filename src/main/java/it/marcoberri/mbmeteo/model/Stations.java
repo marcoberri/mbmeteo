@@ -39,4 +39,60 @@ public class Stations {
         Gson gson = new Gson();
         return gson.toJson(this);
     }
+
+    /**
+     * @return the id
+     */
+    public ObjectId getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the pos
+     */
+    public Double[] getPos() {
+        return pos;
+    }
+
+    /**
+     * @param pos the pos to set
+     */
+    public void setPos(Double[] pos) {
+        this.pos = pos;
+    }
+
+    /**
+     * @return the active
+     */
+    public Date getActive() {
+        return active;
+    }
+
+    /**
+     * @param active the active to set
+     */
+    public void setActive(Date active) {
+        this.active = active;
+    }
 }

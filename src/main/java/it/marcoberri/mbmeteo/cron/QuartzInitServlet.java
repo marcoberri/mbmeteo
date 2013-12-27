@@ -86,7 +86,7 @@ public class QuartzInitServlet extends HttpServlet {
 
             try {
                 schedulerFactory = new StdSchedulerFactory(prop);
-            } catch (SchedulerException ex) {
+            } catch (final SchedulerException ex) {
                 log.error(ex);
 
                 return;
@@ -100,7 +100,6 @@ public class QuartzInitServlet extends HttpServlet {
                 final Trigger triggerImport = new CronTrigger("trigger_check_log", "group_check_log", "job_check_log", "group_check_log", cronImportEW);
                 scheduler.scheduleJob(jobImport, triggerImport);
 
-
                 final String cronImportPW = Default.toString(ConfigurationHelper.prop.getProperty("import.loggerPywws.cron"), "0 0/5 * * * ?");
                 final JobDetail jobImport2 = new JobDetail("job_check_log_pw", "group_check_log_pw", QuartzImportLogPywws.class);
                 final Trigger triggerImport2 = new CronTrigger("trigger_check_log_pw", "group_check_log_pw", "job_check_log_pw", "group_check_log_pw", cronImportPW);
@@ -111,14 +110,12 @@ public class QuartzInitServlet extends HttpServlet {
                 final Trigger triggerReduce = new CronTrigger("trigger_reduce", "group_reduce", "job_reduce", "group_reduce", cronReduce);
                 scheduler.scheduleJob(jobReduce, triggerReduce);
 
-
                 final String cronCleanCache = Default.toString(ConfigurationHelper.prop.getProperty("action.clearcache.cron"), "0 0 23 1 * ?");
                 final JobDetail jobCleanCache = new JobDetail("job_CleanCache", "group_CleanCache", QuartzClearCache.class);
                 final Trigger triggerCleanCache = new CronTrigger("trigger_CleanCache", "group_CleanCache", "job_CleanCache", "group_CleanCache", cronCleanCache);
                 scheduler.scheduleJob(jobCleanCache, triggerCleanCache);
 
-
-            } catch (ParseException ex) {
+            } catch (final ParseException ex) {
                 log.error("Fatal config Job", ex);
                 return;
             }
@@ -126,13 +123,9 @@ public class QuartzInitServlet extends HttpServlet {
             scheduler.start();
             String factoryKey = QUARTZ_FACTORY_KEY;
             application.setAttribute(factoryKey, schedulerFactory);
-        } catch (SchedulerException ex) {
+        } catch (final SchedulerException ex) {
             log.error("Fatal conf Job", ex);
         }
-
-
-
-
 
     }
 
@@ -146,13 +139,15 @@ public class QuartzInitServlet extends HttpServlet {
             return;
         }
 
-        if (scheduler != null) {
-            try {
-                scheduler.shutdown();
-            } catch (SchedulerException ex) {
+        if (scheduler == null) {
+            return;
+        }
+        try {
+            scheduler.shutdown();
+        } catch (final SchedulerException ex) {
 
-                log.error(ex);
-            }
+            log.error(ex);
+
         }
     }
 

@@ -1,4 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="it.marcoberri.mbmeteo.model.MapReduceHistoryMinMax, it.marcoberri.mbmeteo.utils.StringUtil, java.util.ArrayList, java.util.Date, java.util.Map, it.marcoberri.mbmeteo.utils.Default, it.marcoberri.mbmeteo.utils.DateTimeUtil, it.marcoberri.mbmeteo.helper.ConfigurationHelper" %>
+<%@page import="java.util.List"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="it.marcoberri.mbmeteo.model.MapReduceHistoryMinMax, it.marcoberri.mbmeteo.model.News, it.marcoberri.mbmeteo.utils.StringUtil, java.util.ArrayList, java.util.Date, java.util.Map, it.marcoberri.mbmeteo.utils.Default, it.marcoberri.mbmeteo.utils.DateTimeUtil, it.marcoberri.mbmeteo.helper.ConfigurationHelper" %>
 <%@page import="java.util.TreeMap"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -13,6 +14,11 @@
     MapReduceHistoryMinMax datesHistory = null;
     if (application.getAttribute("history") != null) {
         datesHistory = (MapReduceHistoryMinMax) application.getAttribute("history");
+    }
+
+    List<News> news = null;
+    if (application.getAttribute("news") != null) {
+        news = (List<News>) application.getAttribute("news");
     }
 
     if (application.getAttribute("to") != null) {
@@ -128,10 +134,12 @@
 
                     </div>
 
-                    <div class="span4">
-                     <div class="col-md-4">10/10/2010. Add support</div>
-                     <div class="col-md-4">10/10/2010. Add support</div>
-                     <div class="col-md-4">10/10/2010. Add support</div>
+                    <div class="span4" >
+                        <p>
+                        <% for(News n : news){%>
+                        <div class="col-md-4"><small><%=DateTimeUtil.dateFormat("dd-MM-yyyy", n.getData())%>. <%=n.getTitle()%></small></div>
+                         <%}%>
+                    </p>   
                     </div>
 
                         

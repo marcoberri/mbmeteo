@@ -15,6 +15,7 @@
 package it.marcoberri.mbmeteo.helper;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.Properties;
@@ -40,7 +41,7 @@ public final class ConfigurationHelper {
             final String webInfFolder = webInfFolderPosition.substring(0, webInfFolderPosition.indexOf("classes"));
             prop = new Properties();
             prop.load(FileUtils.openInputStream(new File(webInfFolder + File.separator + "config.properties")));
-        } catch (Exception e) {
+        } catch (final IOException e) {
             throw new RuntimeException("Error initializing mongo db", e);
         }
     }
@@ -54,10 +55,10 @@ public final class ConfigurationHelper {
     }
 
     public String getProperty(String key) {
-        return this.prop.getProperty(key);
+        return ConfigurationHelper.prop.getProperty(key);
     }
 
     public String getProperty(String key, String def) {
-        return this.prop.getProperty(key, def);
+        return ConfigurationHelper.prop.getProperty(key, def);
     }
 }

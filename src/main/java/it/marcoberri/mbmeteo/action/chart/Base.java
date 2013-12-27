@@ -49,8 +49,8 @@ public class Base extends HttpServlet {
      * @return
      */
     protected List<Date> getRangeDate(Date from, Date to) {
-        List<Date> dates = new ArrayList<Date>();
-        Calendar calendar = new GregorianCalendar();
+        final List<Date> dates = new ArrayList<Date>();
+        final Calendar calendar = new GregorianCalendar();
         calendar.setTime(from);
 
         while (calendar.getTime().before(to)) {
@@ -88,7 +88,7 @@ public class Base extends HttpServlet {
             }
 
             return DigestUtils.shaHex(s.toString());
-        } catch (Exception e) {
+        } catch (final Exception e) {
             log.error(e);
             return null;
         }

@@ -110,7 +110,7 @@ public class Get extends Base {
                         in.close();
                         out.close();
                         return;
-                    } catch (Exception e) {
+                    } catch (final IOException e) {
                         log.error(e);
                     }
 
@@ -138,13 +138,13 @@ public class Get extends Base {
                 final Method method = m.getClass().getMethod(ChartEnumHelper.getByName(field).getMethod());
                 final Number n = (Number) method.invoke(m);
                 series.add(t, n);
-            } catch (NoSuchMethodException ex) {
+            } catch (final NoSuchMethodException ex) {
                 log.error(ex);
-            } catch (InvocationTargetException ex) {
+            } catch (final InvocationTargetException ex) {
                 log.error(ex);
-            } catch (IllegalAccessException ex) {
+            } catch (final IllegalAccessException ex) {
                 log.error(ex);
-            } catch (SecurityException ex) {
+            } catch (final SecurityException ex) {
                 log.error(ex);
             }
 
@@ -197,10 +197,10 @@ public class Get extends Base {
             out.write(content);
             in.close();
             out.close();
-        } catch (Exception e) {
+        } catch (final IOException e) {
             log.error(e);
         } finally {
-            final boolean delete = f.delete();
+           f.delete();
         }
 
 

@@ -37,6 +37,7 @@ public class QuartzMapReduce implements Job {
      * @param jec
      * @throws JobExecutionException
      */
+    @Override
     public void execute(JobExecutionContext jec) throws JobExecutionException {
 
         log.debug("start : " + this.getClass().getName());

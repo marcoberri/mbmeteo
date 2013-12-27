@@ -112,11 +112,11 @@ public class UploadFile extends HttpServlet {
                 item.write(storeFile);
             }
             request.setAttribute("message", "Upload has been done successfully!");
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             request.setAttribute("message", "There was an error: " + ex.getMessage());
         }
 
-        ExecuteImport i = new ExecuteImport();
+        final ExecuteImport i = new ExecuteImport();
         Thread t = new Thread(i);
         t.start();
 

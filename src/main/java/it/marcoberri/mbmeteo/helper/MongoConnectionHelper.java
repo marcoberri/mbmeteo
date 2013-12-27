@@ -17,15 +17,15 @@ package it.marcoberri.mbmeteo.helper;
 import com.github.jmkgreen.morphia.Datastore;
 import com.github.jmkgreen.morphia.Morphia;
 import com.mongodb.DBCollection;
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 import com.mongodb.gridfs.GridFS;
 import it.marcoberri.mbmeteo.model.Cache;
 import it.marcoberri.mbmeteo.model.MapReduceHistoryMinMax;
 import it.marcoberri.mbmeteo.model.MapReduceMinMax;
 import it.marcoberri.mbmeteo.model.Meteolog;
 import it.marcoberri.mbmeteo.model.News;
+import it.marcoberri.mbmeteo.model.Stations;
+import java.net.UnknownHostException;
 
 /**
  *
@@ -48,11 +48,17 @@ public final class MongoConnectionHelper {
         try {
             final MongoClient mongoClient = new MongoClient(ConfigurationHelper.prop.getProperty("mongo.host") );
             final Morphia morphia = new Morphia();
-            morphia.map(Meteolog.class).map(News.class).map(Cache.class).map(MapReduceMinMax.class).map(MapReduceHistoryMinMax.class);
+            morphia.map(Meteolog.class).
+                    map(News.class).
+                    map(Stations.class).
+                    map(Cache.class).
+                    
+                    map(MapReduceMinMax.class).
+                    map(MapReduceHistoryMinMax.class);
             ds = morphia.createDatastore(mongoClient, ConfigurationHelper.prop.getProperty("mongo.dbname"));
             ds.ensureCaps();
             ds.ensureIndexes();
-        } catch (Exception e) {
+        } catch (final UnknownHostException e) {
             throw new RuntimeException("Error initializing mongo db", e);
         }
     }

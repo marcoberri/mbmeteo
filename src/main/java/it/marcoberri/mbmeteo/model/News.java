@@ -30,8 +30,6 @@ public class News {
       private ObjectId id;   
       private String title;
       private Date data;
-      @Reference 
-      private Stations station;
     /**
      * @return the id
      */
@@ -83,5 +81,7 @@ public class News {
         Gson gson = new Gson();
         return gson.toJson(this);
     }
+
+
         
 }

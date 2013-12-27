@@ -19,6 +19,7 @@ import it.marcoberri.mbmeteo.helper.ConfigurationHelper;
 import it.marcoberri.mbmeteo.helper.MongoConnectionHelper;
 import it.marcoberri.mbmeteo.model.MapReduceHistoryMinMax;
 import it.marcoberri.mbmeteo.model.Meteolog;
+import it.marcoberri.mbmeteo.model.News;
 import it.marcoberri.mbmeteo.utils.DateTimeUtil;
 import it.marcoberri.mbmeteo.utils.Log4j;
 import java.io.IOException;
@@ -76,6 +77,12 @@ public class Start extends HttpServlet {
             application.setAttribute("history", datesHisotry);
         }
 
+        //Get News
+        final List<News> listNews = ds.find(News.class).asList();
+        if (listNews != null && !listNews.isEmpty()) {
+            application.setAttribute("news", listNews);
+        }
+
         final List<Date> datesResult = ds.getDB().getCollection("Meteolog").distinct("time");
 
         application.setAttribute("totRecord", ds.find(Meteolog.class).countAll());
@@ -85,7 +92,6 @@ public class Start extends HttpServlet {
             application.setAttribute("to", DateTimeUtil.getDate("yyyy-MM-dd", "2030-01-01"));
             application.setAttribute("lastUpdate", DateTimeUtil.getDate("yyyy-MM-dd", "1970-01-01"));
             application.setAttribute("activeFrom", new Date());
-            
             return;
         }
 
@@ -96,9 +102,8 @@ public class Start extends HttpServlet {
         for (Date d : datesResult) {
             try {
                 dates.put(df.format(d), d);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 log.error("error on data : " + d, e);
-                continue;
             }
         }
 
