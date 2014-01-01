@@ -48,6 +48,7 @@ public final class MongoConnectionHelper {
         try {
             final MongoClient mongoClient = new MongoClient(ConfigurationHelper.prop.getProperty("mongo.host") );
             final Morphia morphia = new Morphia();
+           //morphia.mapPackage("it.marcoberri.mbmeteo.model")
             morphia.map(Meteolog.class).
                     map(News.class).
                     map(Stations.class).

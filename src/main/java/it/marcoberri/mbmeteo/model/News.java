@@ -14,7 +14,6 @@ package it.marcoberri.mbmeteo.model;
 
 import com.github.jmkgreen.morphia.annotations.Entity;
 import com.github.jmkgreen.morphia.annotations.Id;
-import com.github.jmkgreen.morphia.annotations.Reference;
 import com.google.gson.Gson;
 import java.util.Date;
 import org.bson.types.ObjectId;

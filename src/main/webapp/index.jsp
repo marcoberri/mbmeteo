@@ -239,12 +239,7 @@
                         <%
                             }
                         %>
-
-
-
-
-
-
+                    
                         <div class="tab-pane" id="windLevel">
                             <img src="getChart?field=windLevel&from=<%=from%>&to=<%=to%>"/>
                         </div>  
@@ -279,10 +274,17 @@
 
                         <div class="tab-pane" id="historychart">
                             <%
-                                for (int i = 1; i < Default.toInt(DateTimeUtil.getNowWithFormat("MM"), 1); i++) {
+                                for (int i = 1; i <= 12; i++) {
                             %>                            
                             <div>
                                 <a alt="Outdoor Temperature - from 01-<%=i%>-2013 to from 31-<%=i%>-2013" href="getChart?field=outdoorTemperature&from=2013-<%=i%>-01&to=2013-<%=i%>-31&dimx=<%=bigDimx%>&dimy=<%=bigDimy%>"><img src="getChart?field=outdoorTemperature&from=2013-<%=i%>-01&to=2013-<%=i%>-31&dimy=300"/></a>
+                                <% 
+                                    if( Default.toInt( DateTimeUtil.getNowWithFormat("yyyyMM") ,202001) > 201401 ) { 
+                                %>
+                                    <a alt="Outdoor Temperature - from 01-<%=i%>-2014 to from 31-<%=i%>-2014" href="getChart?field=outdoorTemperature&from=2014-<%=i%>-01&to=2014-<%=i%>-31&dimx=<%=bigDimx%>&dimy=<%=bigDimy%>"><img src="getChart?field=outdoorTemperature&from=2014-<%=i%>-01&to=2014-<%=i%>-31&dimy=300"/></a>
+                                <%
+                                    }
+                                %>
                             </div>
                             <%
                                 }
@@ -295,7 +297,7 @@
             </div>
 
             <footer>
-                <p>&copy; <a href="http://marcoberri.blogspot.com">Marco e Cinzia Blog</a> - webapp from <a href="http://tecnicume.blogspot.com">Marco</a> - <a href="http://code.google.com/p/mbmeteo">Here</a></p>
+                <p>&copy; <a href="http://marcoberri.blogspot.com">Marco e Cinzia Blog</a> - webapp from <a href="http://tecnicume.blogspot.com">Marco</a> - <a href="https://github.com/marcoberri/MBMeteo">Here</a></p>
             </footer>
 
         </div> <!-- /container -->
@@ -350,12 +352,12 @@
                 <p>
 
                 <ul>
-                    <li>Web Server : Jetty Server</li>
-                    <li>Ide : <a href="http://www.netbeans.org">NetBeans IDE 7.2.1 on Ubuntu 12.10</a></li>
+                    <li>Web Server : Tomcat 7 </li>
+                    <li>Ide : <a href="http://www.netbeans.org">NetBeans IDE 7.4</a></li>
                     <li>DB : <a href="http://www.mongodb.org">MongoDB</a></li>
                     <li>OS : Ubuntu Server 12.10</li>
-                    <li>Server : <a href="http://www.linode.com">Linode</a></li>
-                    <li>Source : <a href="http://code.google.com/p/mbmeteo">Google code</a></li>
+                    <li>Hosting : <a href="http://www.linode.com">Linode</a></li>
+                    <li>Source : <a href="https://github.com/marcoberri/MBMeteo">code on gitHub</a></li>
                     <li>Tech Blog : <a href="http://tecnicume.blogspot.it">Tecnicume</a></li>
                     <li>Total Record : <%=application.getAttribute("totRecord")%> </li>
                 </ul>

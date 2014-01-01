@@ -78,7 +78,7 @@ public class Start extends HttpServlet {
         }
 
         //Get News
-        final List<News> listNews = ds.find(News.class).asList();
+        final List<News> listNews = ds.find(News.class).order("-data").asList();
         if (listNews != null && !listNews.isEmpty()) {
             application.setAttribute("news", listNews);
         }
