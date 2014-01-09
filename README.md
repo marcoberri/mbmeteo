@@ -1,6 +1,8 @@
 MBMeteo
 --------------
 
+<img src="https://www.codeship.io/projects/2271f2e0-5b61-0131-62a1-32461ad1ef35/status"/>
+
 Visualizzazione ed elaborazione dati Meteo provenienti dalla stazione amatoriale di Santhi&agrave; (VC).
 
 Stazione Meteo PCE fws 20.
